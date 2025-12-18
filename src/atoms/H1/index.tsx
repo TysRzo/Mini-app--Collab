@@ -1,7 +1,5 @@
-const H1 = ({ inputName}) => {
-  return (
-    <h1>{inputName}</h1>
-  );
+const H1 = ({ PageTitle }) => {
+  return <h1>{PageTitle}</h1>;
 };
 
 export default H1;
