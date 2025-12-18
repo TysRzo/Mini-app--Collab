@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import H1 from '../../atoms/H1';
 import FormInputEmail from '../../atoms/FormInputs/FormInputEmail';
+import Header from '../../layouts/Header';
 import FormInputPassword from '../../atoms/FormInputs/FormInputPassword';
+import Main from '../../layouts/Main';
+import Footer from '../../layouts/Footer';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -22,8 +25,10 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
+    <>
+      <Header />
+      
+      <Main>
         <H1 pageTitle="Login" />
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -38,8 +43,10 @@ const Login = () => {
             Se connecter
           </button>
         </form>
-      </div>
-    </div>
+      </Main>
+
+      <Footer />
+    </>
   );
 };
 
