@@ -1,3 +1,5 @@
+import NavLink from '../../molecules/NavLink';
+
 const Header = () => {
     return (
         <header className="w-full border-b border-gray-200 bg-white">
@@ -5,6 +7,9 @@ const Header = () => {
                 <p className="text-xl font-bold tracking-tight text-gray-900">
                     NRV12
                 </p>
+            </div>
+            <div>
+                <NavLink />
             </div>
         </header>
     );
