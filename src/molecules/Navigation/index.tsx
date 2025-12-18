@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router";
+import { useTranslation } from "react-i18next";
 import type { RootState } from "../../store/store";
 import { useAppDispatch } from "../../store/hooks";
 import { logoutUser } from "../../store/user/userThunks";
@@ -10,6 +11,7 @@ const linkInactive = "text-gray-700 hover:text-gray-900";
 
 const Navigation = () => {
   const dispatch = useAppDispatch();
+  const { i18n, t } = useTranslation();
 
   const registrationsClosed = useSelector(
     (state: RootState) => state.settings.registrationsClosed
@@ -23,6 +25,10 @@ const Navigation = () => {
     dispatch(logoutUser());
   };
 
+  const setLanguage = (lang: "fr" | "en") => {
+    i18n.changeLanguage(lang);
+  };
+
   return (
     <nav className="flex items-center gap-6">
       <NavLink
@@ -31,7 +37,7 @@ const Navigation = () => {
           `${linkBase} ${isActive ? linkActive : linkInactive}`
         }
       >
-        Accueil
+        {t("nav.home")}
       </NavLink>
 
       {isLogged && isAdmin && (
@@ -41,7 +47,7 @@ const Navigation = () => {
             `${linkBase} ${isActive ? linkActive : linkInactive}`
           }
         >
-          Admin
+          {t("nav.admin")}
         </NavLink>
       )}
 
@@ -53,7 +59,7 @@ const Navigation = () => {
               `${linkBase} ${isActive ? linkActive : linkInactive}`
             }
           >
-            Login
+            {t("nav.login")}
           </NavLink>
 
           {!registrationsClosed && (
@@ -63,7 +69,7 @@ const Navigation = () => {
                 `${linkBase} ${isActive ? linkActive : linkInactive}`
               }
             >
-              Register
+              {t("nav.register")}
             </NavLink>
           )}
         </>
@@ -74,9 +80,31 @@ const Navigation = () => {
           onClick={handleLogout}
           className="ml-4 rounded-md bg-red-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-800"
         >
-          Logout
+          {t("nav.logout")}
         </button>
       )}
+
+      <div className="ml-auto flex items-center gap-4">
+        <div className="h-5 border-l border-gray-300" />
+
+        <button
+          onClick={() => setLanguage("fr")}
+          className={`${linkBase} ${
+            i18n.language === "fr" ? linkActive : linkInactive
+          }`}
+        >
+          FR
+        </button>
+
+        <button
+          onClick={() => setLanguage("en")}
+          className={`${linkBase} ${
+            i18n.language === "en" ? linkActive : linkInactive
+          }`}
+        >
+          EN
+        </button>
+      </div>
     </nav>
   );
 };

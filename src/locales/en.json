@@ -1,0 +1,63 @@
+{
+  "nav": {
+    "home": "Home",
+    "admin": "Admin",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout"
+  },
+  "home": {
+    "title": "Home"
+  },
+  "login": {
+    "title": "Login",
+    "fields": {
+      "email": "Email",
+      "password": "Password"
+    },
+    "actions": {
+      "submit": "Sign in",
+      "submitting": "Signing in..."
+    },
+    "errors": {
+      "invalid_credentials": "Invalid credentials"
+    }
+  },
+  "register": {
+    "title": "Register",
+    "fields": {
+      "email": "Email",
+      "password": "Password"
+    },
+    "actions": {
+      "submit": "Create account",
+      "submitting": "Creating account..."
+    },
+    "flash": {
+      "success": "Account created successfully. You can now sign in."
+    },
+    "errors": {
+      "generic": "Something went wrong"
+    }
+  },
+  "admin": {
+    "dashboard": {
+      "title": "Admin dashboard"
+    },
+    "registrations": {
+      "title": "Registrations",
+      "currently": "Registrations are currently",
+      "status": {
+        "open": "open",
+        "closed": "closed"
+      },
+      "actions": {
+        "open": "Open registrations",
+        "close": "Close registrations"
+      },
+      "errors": {
+        "update_failed": "Unable to update registrations status"
+      }
+    }
+  }
+}

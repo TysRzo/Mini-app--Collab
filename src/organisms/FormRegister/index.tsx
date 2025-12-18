@@ -1,5 +1,6 @@
 import { useState, type FormEvent, type ChangeEvent } from "react";
 import { useNavigate } from "react-router";
+import { useTranslation } from "react-i18next";
 import axios from "axios";
 
 import FormInputEmail from "../../atoms/FormInputs/FormInputEmail";
@@ -12,6 +13,7 @@ type RegisterApiSuccess = { success: true };
 type RegisterApiError = { error: string };
 
 const FormRegister = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -49,7 +51,7 @@ const FormRegister = () => {
       navigate("/login", {
         replace: true,
         state: {
-          flash: "Compte créé avec succès. Vous pouvez vous connecter.",
+          flash: t("register.flash.success"),
         },
       });
     } catch (e) {
@@ -57,7 +59,7 @@ const FormRegister = () => {
         ? e.response?.data?.error
         : null;
 
-      setError(apiMsg ?? "Une erreur est survenue");
+      setError(apiMsg ?? t("register.errors.generic"));
     } finally {
       setIsSubmitting(false);
     }
@@ -80,7 +82,11 @@ const FormRegister = () => {
       "
     >
       <FormRow>
-        <FormLabel labelFor="userEmail" labelText="Email" isRequired />
+        <FormLabel
+          labelFor="userEmail"
+          labelText={t("register.fields.email")}
+          isRequired
+        />
         <FormInputEmail
           inputName="email"
           inputId="userEmail"
@@ -92,7 +98,7 @@ const FormRegister = () => {
       <FormRow>
         <FormLabel
           labelFor="userPassword"
-          labelText="Mot de passe"
+          labelText={t("register.fields.password")}
           isRequired
         />
         <FormInputPassword
@@ -105,7 +111,13 @@ const FormRegister = () => {
 
       {error && <p className="text-sm font-medium text-red-700">{error}</p>}
 
-      <FormSubmit content={isSubmitting ? "Inscription..." : "S'inscrire"} />
+      <FormSubmit
+        content={
+          isSubmitting
+            ? t("register.actions.submitting")
+            : t("register.actions.submit")
+        }
+      />
     </form>
   );
 };

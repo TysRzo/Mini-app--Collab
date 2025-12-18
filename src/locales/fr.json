@@ -1,0 +1,63 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "admin": "Admin",
+    "login": "Connexion",
+    "register": "Inscription",
+    "logout": "Déconnexion"
+  },
+  "home": {
+    "title": "Accueil"
+  },
+  "login": {
+    "title": "Connexion",
+    "fields": {
+      "email": "Email",
+      "password": "Mot de passe"
+    },
+    "actions": {
+      "submit": "Se connecter",
+      "submitting": "Connexion..."
+    },
+    "errors": {
+      "invalid_credentials": "Identifiants invalides"
+    }
+  },
+  "register": {
+    "title": "Inscription",
+    "fields": {
+      "email": "Email",
+      "password": "Mot de passe"
+    },
+    "actions": {
+      "submit": "S'inscrire",
+      "submitting": "Inscription..."
+    },
+    "flash": {
+      "success": "Compte créé avec succès. Vous pouvez vous connecter."
+    },
+    "errors": {
+      "generic": "Une erreur est survenue"
+    }
+  },
+  "admin": {
+    "dashboard": {
+      "title": "Tableau de bord admin"
+    },
+    "registrations": {
+      "title": "Inscriptions",
+      "currently": "Les inscriptions sont actuellement",
+      "status": {
+        "open": "ouvertes",
+        "closed": "fermées"
+      },
+      "actions": {
+        "open": "Ouvrir les inscriptions",
+        "close": "Fermer les inscriptions"
+      },
+      "errors": {
+        "update_failed": "Impossible de modifier l’état des inscriptions"
+      }
+    }
+  }
+}

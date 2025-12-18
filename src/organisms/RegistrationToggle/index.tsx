@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { updateRegistrations } from "../../store/settings/settingsThunks";
 
 const RegistrationToggle = () => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
+
   const registrationsClosed = useAppSelector(
     (state) => state.settings.registrationsClosed
   );
@@ -18,19 +21,28 @@ const RegistrationToggle = () => {
     try {
       await dispatch(updateRegistrations(registrationsClosed));
     } catch {
-      setError("Impossible de modifier l’état des inscriptions");
+      setError(t("admin.registrations.errors.update_failed"));
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const statusLabel = registrationsClosed
+    ? t("admin.registrations.status.closed")
+    : t("admin.registrations.status.open");
+
+  const actionLabel = registrationsClosed
+    ? t("admin.registrations.actions.open")
+    : t("admin.registrations.actions.close");
+
   return (
     <section className="mt-6 rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
-      <h2 className="mb-2 text-lg font-semibold">Inscriptions</h2>
+      <h2 className="mb-2 text-lg font-semibold">
+        {t("admin.registrations.title")}
+      </h2>
 
       <p className="mb-4 text-sm text-gray-700">
-        Les inscriptions sont actuellement{" "}
-        <strong>{registrationsClosed ? "fermées" : "ouvertes"}</strong>.
+        {t("admin.registrations.currently")} <strong>{statusLabel}</strong>.
       </p>
 
       {error && (
@@ -50,9 +62,7 @@ const RegistrationToggle = () => {
           ${isSubmitting ? "opacity-60 cursor-not-allowed" : ""}
         `}
       >
-        {registrationsClosed
-          ? "Ouvrir les inscriptions"
-          : "Fermer les inscriptions"}
+        {actionLabel}
       </button>
     </section>
   );

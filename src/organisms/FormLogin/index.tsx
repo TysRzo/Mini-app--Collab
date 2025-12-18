@@ -1,5 +1,6 @@
 import { useState, type FormEvent, type ChangeEvent } from "react";
 import { useNavigate } from "react-router";
+import { useTranslation } from "react-i18next";
 import { useAppDispatch } from "../../store/hooks";
 import { loginUser } from "../../store/user/userThunks";
 
@@ -10,6 +11,7 @@ import FormRow from "../../molecules/FormRow";
 import FormSubmit from "../../atoms/FormSubmit";
 
 const FormLogin = () => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -39,7 +41,7 @@ const FormLogin = () => {
       await dispatch(loginUser(email.trim().toLowerCase(), password));
       navigate("/", { replace: true });
     } catch {
-      setError("Identifiants invalides");
+      setError(t("login.errors.invalid_credentials"));
     } finally {
       setIsSubmitting(false);
     }
@@ -62,7 +64,11 @@ const FormLogin = () => {
       "
     >
       <FormRow>
-        <FormLabel labelFor="userEmail" labelText="Email" isRequired />
+        <FormLabel
+          labelFor="userEmail"
+          labelText={t("login.fields.email")}
+          isRequired
+        />
         <FormInputEmail
           inputName="email"
           inputId="userEmail"
@@ -72,7 +78,11 @@ const FormLogin = () => {
       </FormRow>
 
       <FormRow>
-        <FormLabel labelFor="userPassword" labelText="Password" isRequired />
+        <FormLabel
+          labelFor="userPassword"
+          labelText={t("login.fields.password")}
+          isRequired
+        />
         <FormInputPassword
           inputName="password"
           inputId="userPassword"
@@ -83,7 +93,13 @@ const FormLogin = () => {
 
       {error && <p className="text-sm font-medium text-red-700">{error}</p>}
 
-      <FormSubmit content={isSubmitting ? "Connexion..." : "Se connecter"} />
+      <FormSubmit
+        content={
+          isSubmitting
+            ? t("login.actions.submitting")
+            : t("login.actions.submit")
+        }
+      />
     </form>
   );
 };
