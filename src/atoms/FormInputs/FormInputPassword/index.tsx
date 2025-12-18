@@ -1,6 +1,5 @@
 const FormInputPassword = ({ inputName, inputId, handlePasswordChange }) => {
   return (
-    <>
     <input
       type="password"
       name={inputName}
@@ -8,7 +7,6 @@ const FormInputPassword = ({ inputName, inputId, handlePasswordChange }) => {
       className="form-control"
       onInput={handlePasswordChange}
     />
-    </>
   );
 };
 

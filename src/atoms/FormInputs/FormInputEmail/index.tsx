@@ -1,6 +1,5 @@
 const FormInputEmail = ({ inputName, inputId, handleEmailChange }) => {
   return (
-    <>
     <input
       type="email"
       name={inputName}
@@ -8,7 +7,6 @@ const FormInputEmail = ({ inputName, inputId, handleEmailChange }) => {
       className="form-control"
       onInput={handleEmailChange}
     />
-    </>
   );
 };
 

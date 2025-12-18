@@ -1,6 +1,5 @@
 const FormInputText = ({ inputName, inputId, handleTextChange }) => {
   return (
-    <>
     <input
       type="text"
       name={inputName}
@@ -8,7 +7,6 @@ const FormInputText = ({ inputName, inputId, handleTextChange }) => {
       className="form-control"
       onInput={handleTextChange}
     />
-    </>
   );
 };
 
