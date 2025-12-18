@@ -1,104 +1,68 @@
+import { useState, type FormEvent, type ChangeEvent } from "react";
+import { useNavigate } from "react-router";
+import axios from "axios";
+
 import FormInputEmail from "../../atoms/FormInputs/FormInputEmail";
 import FormInputPassword from "../../atoms/FormInputs/FormInputPassword";
 import FormLabel from "../../atoms/FormLabel";
 import FormRow from "../../molecules/FormRow";
 import FormSubmit from "../../atoms/FormSubmit";
-import type { FormEvent, ChangeEvent } from "react";
-import { useState } from "react";
- 
-// Regex patterns (simplified)
-const EMAIL_REGEX = /^\S+@\S+\.\S+$/;
-const PASSWORD_REGEX = /^.{6,}$/; // minimum 6 characters
- 
-// Stockage des emails enregistrés (en mémoire)
-const registeredEmails: string[] = [];
- 
+
+type RegisterApiSuccess = { success: true };
+type RegisterApiError = { error: string };
+
 const FormRegister = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({ email: "", password: "" });
+
+  const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [success, setSuccess] = useState("");
- 
+
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setEmail(value);
-    setSuccess("");
-   
-    // Validation email en temps réel (simple)
-    if (value && !EMAIL_REGEX.test(value)) {
-      setErrors(prev => ({ ...prev, email: "Format email invalide" }));
-    } else {
-      setErrors(prev => ({ ...prev, email: "" }));
-    }
+    setEmail(event.target.value);
+    if (error) setError(null);
   };
- 
+
   const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setPassword(value);
-    setSuccess("");
-   
-    // Validation password en temps réel (simple)
-    if (value && !PASSWORD_REGEX.test(value)) {
-      setErrors(prev => ({
-        ...prev,
-        password: "Min 6 caractères"
-      }));
-    } else {
-      setErrors(prev => ({ ...prev, password: "" }));
-    }
+    setPassword(event.target.value);
+    if (error) setError(null);
   };
- 
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     setIsSubmitting(true);
-    setSuccess("");
-   
-    // Reset des erreurs
-    setErrors({ email: "", password: "" });
-   
-    // Vérification finale email
-    if (!EMAIL_REGEX.test(email)) {
-      setErrors(prev => ({ ...prev, email: "Email invalide" }));
-      setIsSubmitting(false);
-      return;
-    }
-   
-    // Vérification finale password
-    if (!PASSWORD_REGEX.test(password)) {
-      setErrors(prev => ({
-        ...prev,
-        password: "Le mot de passe doit contenir au moins 6 caractères"
-      }));
-      setIsSubmitting(false);
-      return;
-    }
-   
-    // Vérifier si l'email existe déjà
-    if (registeredEmails.includes(email.toLowerCase())) {
-      setErrors(prev => ({ ...prev, email: "Cet email est déjà utilisé" }));
-      setIsSubmitting(false);
-      return;
-    }
-   
+    setError(null);
+
     try {
-      // Simuler enregistrement (remplacer par appel API si besoin)
-      // Ajouter l'email à la liste
-      registeredEmails.push(email.toLowerCase());
-     
-      // Réinitialiser le formulaire
-      setEmail("");
-      setPassword("");
-      setErrors({ email: "", password: "" });
-      setSuccess("Compte créé avec succès");
-     
-    } catch (error) {
-      setErrors(prev => ({ ...prev, email: "Une erreur est survenue" }));
+      await axios.post<RegisterApiSuccess>(
+        "http://localhost:3000/api/register",
+        {
+          email: email.trim().toLowerCase(),
+          password: password.trim(),
+        },
+        { withCredentials: true }
+      );
+
+      navigate("/login", {
+        replace: true,
+        state: {
+          flash: "Compte créé avec succès. Vous pouvez vous connecter.",
+        },
+      });
+    } catch (e) {
+      const apiMsg = axios.isAxiosError<RegisterApiError>(e)
+        ? e.response?.data?.error
+        : null;
+
+      setError(apiMsg ?? "Une erreur est survenue");
     } finally {
       setIsSubmitting(false);
     }
   };
- 
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -117,40 +81,33 @@ const FormRegister = () => {
     >
       <FormRow>
         <FormLabel labelFor="userEmail" labelText="Email" isRequired />
-        <div className="flex flex-col gap-1 w-full">
-          {success && <p className="text-sm text-green-600">{success}</p>}
-          <FormInputEmail
-            inputName="email"
-            inputId="userEmail"
-            isRequired
-            handleEmailChange={handleEmailChange}
-          />
-          {errors.email && (
-            <p className="text-xs text-red-600">{errors.email}</p>
-          )}
-        </div>
+        <FormInputEmail
+          inputName="email"
+          inputId="userEmail"
+          isRequired
+          handleEmailChange={handleEmailChange}
+        />
       </FormRow>
- 
+
       <FormRow>
-        <FormLabel labelFor="userPassword" labelText="Mot de passe" isRequired />
-        <div className="flex flex-col gap-1 w-full">
-          <FormInputPassword
-            inputName="password"
-            inputId="userPassword"
-            isRequired
-            handlePasswordChange={handlePasswordChange}
-          />
-          {errors.password && (
-            <p className="text-xs text-red-600">{errors.password}</p>
-          )}
-        </div>
+        <FormLabel
+          labelFor="userPassword"
+          labelText="Mot de passe"
+          isRequired
+        />
+        <FormInputPassword
+          inputName="password"
+          inputId="userPassword"
+          isRequired
+          handlePasswordChange={handlePasswordChange}
+        />
       </FormRow>
- 
-      <FormSubmit content="S'inscrire" isDisabled={isSubmitting} />
+
+      {error && <p className="text-sm font-medium text-red-700">{error}</p>}
+
+      <FormSubmit content={isSubmitting ? "Inscription..." : "S'inscrire"} />
     </form>
   );
 };
- 
+
 export default FormRegister;
- 
- 

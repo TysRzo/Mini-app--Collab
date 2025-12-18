@@ -1,16 +1,48 @@
+import { useState, type FormEvent, type ChangeEvent } from "react";
+import { useNavigate } from "react-router";
+import { useAppDispatch } from "../../store/hooks";
+import { loginUser } from "../../store/user/userThunks";
+
 import FormInputEmail from "../../atoms/FormInputs/FormInputEmail";
 import FormInputPassword from "../../atoms/FormInputs/FormInputPassword";
 import FormLabel from "../../atoms/FormLabel";
 import FormRow from "../../molecules/FormRow";
 import FormSubmit from "../../atoms/FormSubmit";
-import type { FormEvent } from "react";
 
 const FormLogin = () => {
-  const handleEmailChange = () => {};
-  const handlePasswordChange = () => {};
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [error, setError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+    if (error) setError(null);
+  };
+
+  const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+    if (error) setError(null);
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    setIsSubmitting(true);
+    setError(null);
+
+    try {
+      await dispatch(loginUser(email.trim().toLowerCase(), password));
+      navigate("/", { replace: true });
+    } catch {
+      setError("Identifiants invalides");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -49,7 +81,9 @@ const FormLogin = () => {
         />
       </FormRow>
 
-      <FormSubmit content="Se connecter" />
+      {error && <p className="text-sm font-medium text-red-700">{error}</p>}
+
+      <FormSubmit content={isSubmitting ? "Connexion..." : "Se connecter"} />
     </form>
   );
 };
