@@ -1,5 +1,6 @@
 const FormInputDateTime = ({ inputName, inputId, handleDateTimeChange }) => {
   return (
+    <>
     <input
       type="datetime-local"
       name={inputName}
@@ -7,6 +8,7 @@ const FormInputDateTime = ({ inputName, inputId, handleDateTimeChange }) => {
       className="form-control"
       onInput={handleDateTimeChange}
     />
+    </>
   );
 };
 
