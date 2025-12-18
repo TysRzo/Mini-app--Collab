@@ -54,7 +54,7 @@ const Navigation = () => {
       {!isLogged && (
         <>
           <NavLink
-            to="/login"
+            to="/connexion"
             className={({ isActive }) =>
               `${linkBase} ${isActive ? linkActive : linkInactive}`
             }
@@ -64,7 +64,7 @@ const Navigation = () => {
 
           {!registrationsClosed && (
             <NavLink
-              to="/register"
+              to="/inscription"
               className={({ isActive }) =>
                 `${linkBase} ${isActive ? linkActive : linkInactive}`
               }

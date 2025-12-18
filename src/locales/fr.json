@@ -1,4 +1,10 @@
 {
+  "common": {
+    "actions": {
+      "edit": "Modifier",
+      "delete": "Supprimer"
+    }
+  },
   "nav": {
     "home": "Accueil",
     "admin": "Admin",
@@ -40,6 +46,25 @@
       "generic": "Une erreur est survenue"
     }
   },
+  "vote": {
+    "current": {
+      "title": "Vote en cours",
+      "loading": "Chargement du vote en cours…",
+      "score": "Score actuel :",
+      "myVote": "Ton vote :",
+      "myVoteValue": {
+        "up": "+1",
+        "down": "-1",
+        "neutral": "neutre"
+      },
+      "actions": {
+        "down": "-1",
+        "up": "+1",
+        "clear": "Annuler"
+      },
+      "hint": "Tu peux changer d’avis : +1, -1 ou annuler (0) tant que le vote est ouvert."
+    }
+  },
   "admin": {
     "dashboard": {
       "title": "Tableau de bord admin"
@@ -58,6 +83,47 @@
       "errors": {
         "update_failed": "Impossible de modifier l’état des inscriptions"
       }
+    },
+    "votes": {
+      "title": "Votes",
+      "loading": "Chargement des votes…",
+      "actions": {
+        "add": "Ajouter un vote",
+        "open": "Ouvrir",
+        "close": "Fermer",
+        "reopen": "Ré-ouvrir"
+      },
+      "status": {
+        "scheduled": "Programmé",
+        "open": "Ouvert",
+        "closed": "Fermé"
+      },
+      "fields": {
+        "startsAtShort": "Début",
+        "endsAtShort": "Fin"
+      },
+      "results": {
+        "title": "Résultats (camembert)",
+        "soon": "À venir"
+      },
+      "create": {
+        "fields": {
+          "title": "Titre",
+          "startsAt": "Début",
+          "endsAt": "Fin"
+        },
+        "placeholders": {
+          "title": "Ex : Choix du logo 2026"
+        },
+        "actions": {
+          "submit": "Créer le vote",
+          "submitting": "Création..."
+        },
+        "errors": {
+          "generic": "Impossible de créer le vote"
+        }
+      },
+      "confirmDelete": "Supprimer définitivement le vote « {{name}} » ?\nCette action est irréversible."
     }
   }
 }

@@ -1,4 +1,10 @@
 {
+  "common": {
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete"
+    }
+  },
   "nav": {
     "home": "Home",
     "admin": "Admin",
@@ -40,6 +46,25 @@
       "generic": "Something went wrong"
     }
   },
+  "vote": {
+    "current": {
+      "title": "Current vote",
+      "loading": "Loading current vote…",
+      "score": "Current score:",
+      "myVote": "Your vote:",
+      "myVoteValue": {
+        "up": "+1",
+        "down": "-1",
+        "neutral": "neutral"
+      },
+      "actions": {
+        "down": "-1",
+        "up": "+1",
+        "clear": "Clear"
+      },
+      "hint": "You can change your mind: +1, -1, or clear (0) as long as the vote is open."
+    }
+  },
   "admin": {
     "dashboard": {
       "title": "Admin dashboard"
@@ -58,6 +83,47 @@
       "errors": {
         "update_failed": "Unable to update registrations status"
       }
+    },
+    "votes": {
+      "title": "Votes",
+      "loading": "Loading votes…",
+      "actions": {
+        "add": "Add vote",
+        "open": "Open",
+        "close": "Close",
+        "reopen": "Re-open"
+      },
+      "status": {
+        "scheduled": "Scheduled",
+        "open": "Open",
+        "closed": "Closed"
+      },
+      "fields": {
+        "startsAtShort": "Start",
+        "endsAtShort": "End"
+      },
+      "results": {
+        "title": "Results (pie chart)",
+        "soon": "Coming soon"
+      },
+      "create": {
+        "fields": {
+          "title": "Title",
+          "startsAt": "Starts at",
+          "endsAt": "Ends at"
+        },
+        "placeholders": {
+          "title": "e.g. Choose the 2026 logo"
+        },
+        "actions": {
+          "submit": "Create vote",
+          "submitting": "Creating..."
+        },
+        "errors": {
+          "generic": "Unable to create vote"
+        }
+      },
+      "confirmDelete": "Permanently delete the vote \"{{name}}\"?\nThis action cannot be undone."
     }
   }
 }

@@ -1,8 +1,9 @@
 import { Routes, Route } from "react-router";
 import Homepage from "../pages/Homepage";
-import AdminDashboard from "../pages/AdminDashboard";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import AdminDashboard from "../pages/admin/Dashboard";
+import AddVote from "../pages/admin/AddVote";
 import NotFound from "../pages/NotFound";
 
 const AppRouter = () => {
@@ -10,8 +11,9 @@ const AppRouter = () => {
     <Routes>
       <Route index element={<Homepage />} />
       <Route path="/admin" element={<AdminDashboard />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      <Route path="/admin/votes/nouveau" element={<AddVote />} />
+      <Route path="/connexion" element={<Login />} />
+      <Route path="/inscription" element={<Register />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

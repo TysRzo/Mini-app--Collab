@@ -48,7 +48,7 @@ const FormRegister = () => {
         { withCredentials: true }
       );
 
-      navigate("/login", {
+      navigate("/connexion", {
         replace: true,
         state: {
           flash: t("register.flash.success"),

@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import settingsReducer from "./settings/settingsSlice";
 import userReducer from "./user/userSlice";
+import votesReducer from "./votes/voteSlice";
 
 export const store = configureStore({
   reducer: {
     settings: settingsReducer,
-    user: userReducer
+    user: userReducer,
+    votes: votesReducer,
   },
 });
 
