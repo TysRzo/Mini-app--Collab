@@ -1,12 +1,16 @@
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router";
+import type { RootState } from "../../store/store";
 
 const linkBase = "text-sm font-medium transition-colors pb-1";
-
 const linkActive = "text-gray-900 border-b-2 border-gray-900";
-
 const linkInactive = "text-gray-700 hover:text-gray-900";
 
 const Navigation = () => {
+  const registrationsClosed = useSelector(
+    (state: RootState) => state.settings.registrationsClosed
+  );
+
   const handleLogout = () => {
     console.log("Déconnexion");
   };
@@ -40,14 +44,16 @@ const Navigation = () => {
         Login
       </NavLink>
 
-      <NavLink
-        to="/register"
-        className={({ isActive }) =>
-          `${linkBase} ${isActive ? linkActive : linkInactive}`
-        }
-      >
-        Register
-      </NavLink>
+      {!registrationsClosed && (
+        <NavLink
+          to="/register"
+          className={({ isActive }) =>
+            `${linkBase} ${isActive ? linkActive : linkInactive}`
+          }
+        >
+          Register
+        </NavLink>
+      )}
 
       <button
         onClick={handleLogout}
