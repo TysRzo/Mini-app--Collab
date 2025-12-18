@@ -13,3 +13,14 @@ export const fetchSettings = () => async (dispatch: AppDispatch) => {
 
   dispatch(setRegistrationsClosed(res.data.registrationsClosed === "true"));
 };
+
+export const updateRegistrations =
+  (closed: boolean) => async (dispatch: AppDispatch) => {
+    await axios.post(
+      "http://localhost:3000/api/admin/registrations",
+      { value: !closed },
+      { withCredentials: true }
+    );
+
+    dispatch(setRegistrationsClosed(!closed));
+  };

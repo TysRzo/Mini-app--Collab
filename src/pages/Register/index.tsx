@@ -9,8 +9,15 @@ import type { RootState } from "../../store/store";
 
 const Register = () => {
   const isLogged = useSelector((state: RootState) => state.user.isLogged);
+  const registrationsClosed = useSelector(
+    (state: RootState) => state.settings.registrationsClosed
+  );
 
   if (isLogged) {
+    return <Navigate to="/" replace />;
+  }
+
+  if (registrationsClosed) {
     return <Navigate to="/" replace />;
   }
 
