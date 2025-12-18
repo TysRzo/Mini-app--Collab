@@ -23,6 +23,15 @@ const Navigation = () => {
       </NavLink>
 
       <NavLink
+        to="/admin"
+        className={({ isActive }) =>
+          `${linkBase} ${isActive ? linkActive : linkInactive}`
+        }
+      >
+        Admin
+      </NavLink>
+
+      <NavLink
         to="/login"
         className={({ isActive }) =>
           `${linkBase} ${isActive ? linkActive : linkInactive}`
@@ -38,15 +47,6 @@ const Navigation = () => {
         }
       >
         Register
-      </NavLink>
-
-      <NavLink
-        to="/admin"
-        className={({ isActive }) =>
-          `${linkBase} ${isActive ? linkActive : linkInactive}`
-        }
-      >
-        Admin
       </NavLink>
 
       <button
