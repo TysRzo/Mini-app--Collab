@@ -2,6 +2,7 @@ import H1 from "../../atoms/H1";
 import Footer from "../../layouts/Footer";
 import Header from "../../layouts/Header";
 import Main from "../../layouts/Main";
+import FormRegister from "../../organisms/FormRegister";
 
 const Register = () => {
   return (
@@ -10,6 +11,7 @@ const Register = () => {
       
       <Main>  
         <H1 pageTitle="Register" />
+        <FormRegister />
       </Main>
 
       <Footer />
