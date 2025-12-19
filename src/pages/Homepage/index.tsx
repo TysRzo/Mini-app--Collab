@@ -43,7 +43,7 @@ const Homepage = () => {
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <Link
-                to="/login"
+                to="/connexion"
                 className="
                   flex
                   items-center
@@ -66,7 +66,7 @@ const Homepage = () => {
               </Link>
 
               <Link
-                to="/register"
+                to="/inscription"
                 className="
                   flex
                   items-center
