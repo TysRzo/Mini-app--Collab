@@ -1,24 +1,44 @@
-import { useState, type ChangeEvent, type FormEvent } from "react";
+import { useState, useEffect, type ChangeEvent, type FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { useAppDispatch } from "../../store/hooks";
-import { createAdminVoteThunk } from "../../store/votes/voteThunks";
+import { createAdminVoteThunk, updateAdminVoteThunk } from "../../store/votes/voteThunks";
 
 import FormLabel from "../../atoms/FormLabel";
 import FormRow from "../../molecules/FormRow";
 import FormSubmit from "../../atoms/FormSubmit";
 
-const FormCreateVote = () => {
+type FormCreateVoteProps = {
+  initialData?: {
+    id: number;
+    title: string;
+    startsAt: string;
+    endsAt: string;
+  };
+  onSuccess?: () => void;
+};
+
+const FormCreateVote = ({ initialData, onSuccess }: FormCreateVoteProps) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [title, setTitle] = useState("");
-  const [startsAt, setStartsAt] = useState("");
-  const [endsAt, setEndsAt] = useState("");
+  const [title, setTitle] = useState(initialData?.title || "");
+  const [startsAt, setStartsAt] = useState(initialData?.startsAt || "");
+  const [endsAt, setEndsAt] = useState(initialData?.endsAt || "");
 
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const isEditMode = !!initialData?.id;
+
+  useEffect(() => {
+    if (initialData) {
+      setTitle(initialData.title);
+      setStartsAt(initialData.startsAt);
+      setEndsAt(initialData.endsAt);
+    }
+  }, [initialData]);
 
   const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
@@ -42,17 +62,35 @@ const FormCreateVote = () => {
     setError(null);
 
     try {
-      await dispatch(
-        createAdminVoteThunk({
-          title: title.trim(),
-          startsAt,
-          endsAt,
-        })
-      );
+      if (isEditMode && initialData?.id) {
+        await dispatch(
+          updateAdminVoteThunk(initialData.id, {
+            title: title.trim(),
+            startsAt,
+            endsAt,
+          })
+        );
+      } else {
+        await dispatch(
+          createAdminVoteThunk({
+            title: title.trim(),
+            startsAt,
+            endsAt,
+          })
+        );
+      }
 
-      navigate("/admin", { replace: true });
+      if (onSuccess) {
+        onSuccess();
+      } else {
+        navigate("/admin", { replace: true });
+      }
     } catch {
-      setError(t("admin.votes.create.errors.generic"));
+      setError(
+        isEditMode
+          ? t("admin.votes.edit.errors.generic")
+          : t("admin.votes.create.errors.generic")
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -130,7 +168,11 @@ const FormCreateVote = () => {
       <FormSubmit
         content={
           isSubmitting
-            ? t("admin.votes.create.actions.submitting")
+            ? isEditMode
+              ? t("admin.votes.edit.actions.submitting")
+              : t("admin.votes.create.actions.submitting")
+            : isEditMode
+            ? t("admin.votes.edit.actions.submit")
             : t("admin.votes.create.actions.submit")
         }
       />
