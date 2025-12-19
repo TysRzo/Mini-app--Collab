@@ -134,6 +134,16 @@
           "generic": "Unable to create vote"
         }
       },
+      "edit": {
+        "title": "Edit vote",
+        "actions": {
+          "submit": "Update vote",
+          "submitting": "Updating..."
+        },
+        "errors": {
+          "generic": "Unable to update vote"
+        }
+      },
       "confirmDelete": "Permanently delete the vote \"{{name}}\"?\nThis action cannot be undone."
     }
   }

@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
-import { Navigate, Link } from "react-router";
+import { Navigate, Link, useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 
 import H1 from "../../../atoms/H1";
@@ -22,6 +22,7 @@ import {
 const Dashboard = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const isAdmin = useSelector(
     (state: RootState) => state.user.user?.role === "admin"
@@ -110,7 +111,7 @@ const Dashboard = () => {
               onDelete={handleDeleteVote}
               onOpen={(id) => dispatch(openAdminVoteThunk(id))}
               onClose={(id) => dispatch(closeAdminVoteThunk(id))}
-              onEdit={(id) => console.log("edit vote", id)}
+              onEdit={(id) => navigate(`/admin/votes/modifier/${id}`)}
             />
           )}
         </section>

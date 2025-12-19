@@ -134,6 +134,16 @@
           "generic": "Impossible de créer le vote"
         }
       },
+      "edit": {
+        "title": "Modifier le vote",
+        "actions": {
+          "submit": "Modifier le vote",
+          "submitting": "Modification..."
+        },
+        "errors": {
+          "generic": "Impossible de modifier le vote"
+        }
+      },
       "confirmDelete": "Supprimer définitivement le vote « {{name}} » ?\nCette action est irréversible."
     }
   }
