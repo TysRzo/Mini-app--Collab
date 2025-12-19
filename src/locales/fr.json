@@ -13,7 +13,18 @@
     "logout": "Déconnexion"
   },
   "home": {
-    "title": "Accueil"
+    "title": "Accueil",
+    "guest": {
+      "intro": "Cette application permet de participer à des votes collectifs simples et transparents.",
+      "rule": "Un vote est ouvert à la fois, chacun peut s’exprimer (+1 ou -1), et le score évolue en temps réel.",
+      "ctaText": "Pour participer au vote en cours, il suffit de",
+      "ctaHighlight": "créer un compte gratuit",
+      "ctaTextEnd": "ou de te connecter.",
+      "actions": {
+        "login": "Se connecter",
+        "register": "S’inscrire gratuitement"
+      }
+    }
   },
   "login": {
     "title": "Connexion",

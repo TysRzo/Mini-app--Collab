@@ -26,7 +26,7 @@ const VoteList = ({
   onClose,
 }: VoteListProps) => {
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-2">
       {votes.map((vote) => (
         <VoteCard
           key={vote.id}

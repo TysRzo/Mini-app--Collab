@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import { Link } from "react-router";
 
 import H1 from "../../atoms/H1";
 import Footer from "../../layouts/Footer";
@@ -26,66 +27,64 @@ const Homepage = () => {
           <section className="mt-6 space-y-6 rounded-xl border border-blue-200 bg-blue-50 p-6 shadow-sm">
             <div>
               <p className="text-sm leading-relaxed text-blue-900">
-                Cette application permet de participer à des votes collectifs
-                simples et transparents.
+                {t("home.guest.intro")}
                 <br />
-                <span className="font-medium">
-                  Un vote est ouvert à la fois, chacun peut s’exprimer (+1 ou
-                  -1), et le score évolue en temps réel.
-                </span>
+                <span className="font-medium">{t("home.guest.rule")}</span>
               </p>
 
               <p className="mt-3 text-sm text-blue-900">
-                Pour participer au vote en cours, il suffit de{" "}
-                <span className="font-semibold">créer un compte gratuit</span>{" "}
-                ou de te connecter.
+                {t("home.guest.ctaText")}{" "}
+                <span className="font-semibold">
+                  {t("home.guest.ctaHighlight")}
+                </span>{" "}
+                {t("home.guest.ctaTextEnd")}
               </p>
             </div>
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <a
-                href="/connexion"
+              <Link
+                to="/login"
                 className="
-          flex
-          items-center
-          justify-center
-          rounded-xl
-          border
-          border-slate-300
-          bg-white
-          px-6
-          py-4
-          text-base
-          font-medium
-          text-slate-800
-          shadow-sm
-          transition
-          hover:bg-slate-50
-        "
+                  flex
+                  items-center
+                  justify-center
+                  rounded-xl
+                  border
+                  border-slate-300
+                  bg-white
+                  px-6
+                  py-4
+                  text-base
+                  font-medium
+                  text-slate-800
+                  shadow-sm
+                  transition
+                  hover:bg-slate-50
+                "
               >
-                Se connecter
-              </a>
+                {t("home.guest.actions.login")}
+              </Link>
 
-              <a
-                href="/inscription"
+              <Link
+                to="/register"
                 className="
-          flex
-          items-center
-          justify-center
-          rounded-xl
-          bg-blue-700
-          px-6
-          py-4
-          text-base
-          font-semibold
-          text-white
-          shadow-sm
-          transition
-          hover:bg-blue-600
-        "
+                  flex
+                  items-center
+                  justify-center
+                  rounded-xl
+                  bg-blue-700
+                  px-6
+                  py-4
+                  text-base
+                  font-semibold
+                  text-white
+                  shadow-sm
+                  transition
+                  hover:bg-blue-600
+                "
               >
-                S’inscrire gratuitement
-              </a>
+                {t("home.guest.actions.register")}
+              </Link>
             </div>
           </section>
         )}

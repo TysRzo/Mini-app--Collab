@@ -13,7 +13,18 @@
     "logout": "Logout"
   },
   "home": {
-    "title": "Home"
+    "title": "Home",
+    "guest": {
+      "intro": "This app lets you take part in simple and transparent community votes.",
+      "rule": "Only one vote can be open at a time: everyone can react (+1 or -1), and the score updates in real time.",
+      "ctaText": "To participate in the current vote, just",
+      "ctaHighlight": "create a free account",
+      "ctaTextEnd": "or sign in.",
+      "actions": {
+        "login": "Sign in",
+        "register": "Create a free account"
+      }
+    }
   },
   "login": {
     "title": "Login",
